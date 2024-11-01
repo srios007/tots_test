@@ -1,13 +1,10 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tots_test/ui/common/common.dart';
 
 import '../../../widgets/widgets.dart';
 import '../../ui.dart';
-import 'login_viewmodel.dart';
 
 class LoginView extends StackedView<LoginViewModel> {
   const LoginView({Key? key}) : super(key: key);
