@@ -7,6 +7,7 @@ import 'package:tots_test/app/app.bottomsheets.dart';
 import 'package:tots_test/app/app.dialogs.dart';
 import 'package:tots_test/app/app.locator.dart';
 import 'package:tots_test/app/app.router.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
@@ -31,9 +32,7 @@ class MainApp extends StatelessWidget {
       initialRoute: _setInitialRoute(),
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
-      navigatorObservers: [
-        StackedService.routeObserver,
-      ],
+      navigatorObservers: [StackedService.routeObserver],
     );
   }
 
