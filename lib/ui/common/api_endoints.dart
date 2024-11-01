@@ -7,5 +7,5 @@ class ApiEndpoints {
 
   static final _instance = ApiEndpoints._internal();
 
-  static const String prueba = '/prueba';
+  static const String login = '/oauth/token';
 }
