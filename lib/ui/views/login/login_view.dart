@@ -13,9 +13,16 @@ class LoginView extends StackedView<LoginViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Container(
-        padding: const EdgeInsets.only(left: 25.0, right: 25.0),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('Login View'),
+          ElevatedButton(
+            onPressed: viewModel.navigateToHomeView,
+            child: const Text('Navigate to Home View'),
+          ),
+        ],
       ),
     );
   }
