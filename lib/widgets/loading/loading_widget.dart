@@ -12,7 +12,7 @@ class LoadingWidget extends StatelessWidget {
       child: Center(
         child: LoadingAnimationWidget.twistingDots(
           leftDotColor: Palette.black,
-          rightDotColor: Palette.primary,
+          rightDotColor: Palette.mainColor,
           size: 20,
         ),
       ),
