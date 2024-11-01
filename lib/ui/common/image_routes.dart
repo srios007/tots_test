@@ -7,8 +7,12 @@ class ImageRoutes {
 
   static final _instance = ImageRoutes._internal();
 
-  static const String blurBottom = 'assets/images/blur_bottom.png';
-  static const String blurLeft = 'assets/images/blur_left.png';
-  static const String blurTop = 'assets/images/blur_top.png';
+  static const String blurBottomLeftHome = 'assets/images/blur_bottom_left_home.png';
+  static const String blurBottomLogin = 'assets/images/blur_bottom.png';
+  static const String blurBottomRightHome = 'assets/images/blur_bottom_rigth_home.png';
+  static const String blurLeftLogin = 'assets/images/blur_left.png';
+  static const String blurRightHome = 'assets/images/blur_right_home.png';
+  static const String blurTopHome = 'assets/images/blur_top_home.png';
+  static const String blurTopLogin = 'assets/images/blur_top.png';
   static const String logo = 'assets/images/logo.png';
 }

@@ -5,6 +5,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tots_test/ui/views/login/login_view.dart';
 import 'package:tots_test/services/login/login_service.dart';
+import 'package:tots_test/services/user/user_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -18,6 +19,7 @@ import 'package:tots_test/services/login/login_service.dart';
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: LoginService),
+    LazySingleton(classType: UserService),
 // @stacked-service
   ],
   bottomsheets: [

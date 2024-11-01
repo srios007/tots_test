@@ -4,7 +4,10 @@ import '../../ui/common/common.dart';
 import '../services.dart';
 
 class LoginService {
-  Future<String?> login({required String email, required String password}) async {
+  Future<String?> login({
+    required String email,
+    required String password,
+  }) async {
     final response = await DioService.instance.post(ApiEndpoints.login, data: {
       'email': email,
       'password': password,

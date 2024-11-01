@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
@@ -17,6 +16,10 @@ class LoginView extends StackedView<LoginViewModel> {
   ) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(0),
+        child: AppBar(),
+      ),
       body: CustomScrollView(
         slivers: [
           SliverFillRemaining(
@@ -27,14 +30,14 @@ class LoginView extends StackedView<LoginViewModel> {
                   top: 0,
                   right: 0,
                   child: Image.asset(
-                    ImageRoutes.blurTop,
+                    ImageRoutes.blurTopLogin,
                     width: Get.width * 0.8,
                   ),
                 ),
                 Positioned(
                   bottom: 0,
                   child: Image.asset(
-                    ImageRoutes.blurBottom,
+                    ImageRoutes.blurBottomLogin,
                     width: Get.width,
                   ),
                 ),
@@ -42,7 +45,7 @@ class LoginView extends StackedView<LoginViewModel> {
                   left: 0,
                   top: Get.height / 2 - (Get.width * 0.4) / 2,
                   child: Image.asset(
-                    ImageRoutes.blurLeft,
+                    ImageRoutes.blurLeftLogin,
                     width: Get.width * 0.4,
                   ),
                 ),

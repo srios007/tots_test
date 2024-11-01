@@ -11,7 +11,7 @@ class DioService {
 
   static final instance = DioService._();
 
-  dioConfig() {
+  Future<Dio> dioConfig({bool requiresAuth = false}) async {
     final dio = Dio(
       BaseOptions(
         baseUrl: dotenv.env['BASE_URL']!,
@@ -27,17 +27,38 @@ class DioService {
 
     dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
 
+    if (requiresAuth) {
+      if (dotenv.env['TOKEN'] != null) {
+        dio.interceptors.add(InterceptorsWrapper(
+          onRequest: (options, handler) {
+            options.headers['Authorization'] = 'Bearer ${dotenv.env['TOKEN']}';
+            return handler.next(options);
+          },
+        ));
+      }
+    }
+
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        log('Request URL: ${options.uri}');
+        log('Request Headers: ${options.headers}');
+        return handler.next(options);
+      },
+    ));
+
     return dio;
   }
 
-  ///Get Method
+  /// Get Method
   Future<dynamic> get(
     String path, {
     Map<String, dynamic>? queryParameters,
     ProgressCallback? onReceiveProgress,
+    bool requiresAuth = false,
   }) async {
     try {
-      final Response response = await dioConfig().get(
+      final dio = await dioConfig(requiresAuth: requiresAuth);
+      final Response response = await dio.get(
         path,
         queryParameters: queryParameters,
       );
@@ -58,9 +79,11 @@ class DioService {
     Map<String, dynamic>? queryParameters,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
+    bool requiresAuth = false,
   }) async {
     try {
-      final Response response = await dioConfig().post(
+      final dio = await dioConfig(requiresAuth: requiresAuth);
+      final Response response = await dio.post(
         path,
         data: data,
         queryParameters: queryParameters,

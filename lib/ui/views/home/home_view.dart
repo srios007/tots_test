@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
-import 'package:tots_test/ui/common/palette.dart';
-import 'package:tots_test/ui/common/ui_helpers.dart';
-
-import 'home_viewmodel.dart';
+import 'package:tots_test/ui/ui.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
   const HomeView({Key? key}) : super(key: key);
@@ -15,64 +13,79 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(0),
+        child: AppBar(),
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Stack(
               children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Image.asset(
+                    ImageRoutes.blurTopHome,
+                    width: Get.width * 0.8,
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: Palette.grey,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: Image.asset(
+                    ImageRoutes.blurBottomLeftHome,
+                    width: Get.width * 0.5,
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Image.asset(
+                    ImageRoutes.blurBottomRightHome,
+                    width: Get.width * 0.5,
+                  ),
+                ),
+                Positioned(
+                  right: 0,
+                  top: Get.height / 4 - (Get.width * 0.4) / 2,
+                  child: Image.asset(
+                    ImageRoutes.blurRightHome,
+                    width: Get.width * 0.7,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 32),
+                  width: Get.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 60),
+                      Center(
+                        child: Image.asset(
+                          ImageRoutes.logo,
+                          height: 45,
                         ),
                       ),
-                    ),
-                    MaterialButton(
-                      color: Palette.grey,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
+                      const SizedBox(height: 20),
+                      const Text(
+                        'CLIENTS',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Palette.greySubtitle,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2.5,
                         ),
                       ),
-                    ),
-                  ],
-                )
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ),
+          )
+        ],
       ),
     );
   }
