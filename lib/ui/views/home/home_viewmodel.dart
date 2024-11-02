@@ -42,6 +42,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
 
   void showBottomSheetCreateUser() {
     _bottomSheetService.showCustomSheet(
+      isScrollControlled: true,
       variant: BottomSheetType.createUser,
       title: ksHomeBottomSheetTitle,
       description: ksHomeBottomSheetDescription,

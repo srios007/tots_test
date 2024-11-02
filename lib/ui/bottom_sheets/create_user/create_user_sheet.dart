@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 import '../../ui.dart';
 import 'create_user_sheet_model.dart';
 
 class CreateUserSheet extends StackedView<CreateUserSheetModel> {
-  final Function(SheetResponse response)? completer;
-  final SheetRequest request;
   const CreateUserSheet({
     Key? key,
-    required this.completer,
-    required this.request,
   }) : super(key: key);
 
   @override
@@ -21,7 +17,9 @@ class CreateUserSheet extends StackedView<CreateUserSheetModel> {
     Widget? child,
   ) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      width: Get.width,
+      height: Get.height * 0.8,
+      padding: const EdgeInsets.all(25),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -29,24 +27,36 @@ class CreateUserSheet extends StackedView<CreateUserSheetModel> {
           topRight: Radius.circular(10),
         ),
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            request.title ?? 'Hello Stacked Sheet!!',
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
-          ),
-          if (request.description != null) ...[
-            verticalSpaceTiny,
-            Text(
-              request.description!,
-              style: const TextStyle(fontSize: 14, color: Palette.grey),
-              maxLines: 3,
-              softWrap: true,
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: Text(
+              'Add new client',
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+                color: Palette.blackBottomSheet,
+              ),
             ),
-          ],
+          ),
           verticalSpaceLarge,
+          // Añade más contenido aquí
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Name',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 20),
+          TextField(
+            decoration: InputDecoration(
+              labelText: 'Email',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
