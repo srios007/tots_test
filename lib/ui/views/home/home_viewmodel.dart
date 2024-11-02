@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:tots_test/app/app.bottomsheets.dart';
 import 'package:tots_test/app/app.dialogs.dart';
 import 'package:tots_test/app/app.locator.dart';
@@ -15,6 +16,10 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
   final _bottomSheetService = locator<BottomSheetService>();
   List<User> _users = [];
   List<User> get users => _users;
+  bool _isLoading = true;
+  bool get isLoading => _isLoading;
+  final searchController = TextEditingController();
+
   @override
   void initialise() {
     getUsers();
@@ -23,6 +28,8 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
   getUsers() async {
     _users = await UserService().getUsers();
     log('Largo de usuarios: ${_users.length}');
+    _isLoading = false;
+    rebuildUi();
   }
 
   String get counterLabel => 'Counter is: $_counter';

@@ -20,6 +20,7 @@ class SearchInput extends StatelessWidget {
     return SizedBox(
       width: Get.width - 40,
       child: TextFormField(
+        
         controller: textEditingController,
         focusNode: focusNode,
         onFieldSubmitted: onChanged,
@@ -31,9 +32,10 @@ class SearchInput extends StatelessWidget {
           errorStyle: Styles().errorStyle,
           focusedBorder: Styles().borderTextField,
           focusedErrorBorder: Styles().errorBorderTextField,
-          hintText: 'Search here',
-          suffixIcon: const Icon(Icons.search, color: Palette.black),
-          suffixIconColor: Palette.black,
+          hintText: 'Search...',
+          prefixIcon: const Icon(Icons.search, color: Palette.black),
+          prefixIconColor: Palette.black,
+          
         ),
         keyboardType: TextInputType.text,
         onChanged: onChanged,

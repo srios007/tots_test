@@ -35,12 +35,12 @@ class Styles {
     fontWeight: FontWeight.w300,
   );
   OutlineInputBorder borderTextField = OutlineInputBorder(
-    borderRadius: const BorderRadius.all(Radius.circular(5)),
+    borderRadius: const BorderRadius.all(Radius.circular(68)),
     borderSide: BorderSide(color: Palette.black.withOpacity(0.3)),
   );
 
   OutlineInputBorder errorBorderTextField = OutlineInputBorder(
-    borderRadius: const BorderRadius.all(Radius.circular(5)),
+    borderRadius: const BorderRadius.all(Radius.circular(68)),
     borderSide: BorderSide(color: Colors.red.withOpacity(0.3)),
   );
 }
