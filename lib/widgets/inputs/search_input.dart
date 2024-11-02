@@ -18,7 +18,7 @@ class SearchInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: Get.width * 0.6,
+      width: Get.width * 0.5,
       height: 38,
       child: TextFormField(
         controller: textEditingController,

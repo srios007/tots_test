@@ -15,4 +15,5 @@ class Palette {
   static const greySearch = Color(0xFF76757D);
   static const greySubtitle = Color(0xFF434545);
   static const white = Color(0xFFFFFFFF);
+  static const shadow = Color(0x402D2C83);
 }

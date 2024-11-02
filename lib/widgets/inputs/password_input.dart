@@ -65,7 +65,7 @@ class PasswordInput extends StatelessWidget {
           validator: validator ??
               (String? _) {
                 if (textEditingController.text.isEmpty) {
-                  return 'Por favor, rellena este campo';
+                  return 'Please fill in this field';
                 } else {
                   return null;
                 }

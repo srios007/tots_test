@@ -37,9 +37,9 @@ class EmailInput extends StatelessWidget {
         controller: textEditingController,
         validator: (String? _) {
           if (textEditingController.text.isEmpty) {
-            return 'Por favor, rellena este campo';
+            return 'Please fill in this field';
           } else if (!GetUtils.isEmail(textEditingController.text)) {
-            return 'Por favor, ingresa un email válido';
+            return 'Please enter a valid email address';
           } else {
             return null;
           }

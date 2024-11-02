@@ -87,12 +87,7 @@ class HomeView extends StackedView<HomeViewModel> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 60),
-          Center(
-            child: Image.asset(
-              ImageRoutes.logo,
-              height: 45,
-            ),
-          ),
+          Center(child: Image.asset(ImageRoutes.logo, height: 45)),
           const SizedBox(height: 20),
           const Text(
             'CLIENTS',
@@ -104,33 +99,56 @@ class HomeView extends StackedView<HomeViewModel> {
             ),
           ),
           const SizedBox(height: 20),
-          SearchInput(
-            textEditingController: viewModel.searchController,
-          ),
+          _buildSearchAndAddButton(viewModel),
           const SizedBox(height: 20),
-          Expanded(
-            child: Visibility(
-              visible: !viewModel.isLoading,
-              replacement: const LoadingWidget(),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ...List.generate(viewModel.users.length, (index) {
-                      final item = viewModel.users[index];
-                      return _userItem(item);
-                    }),
-                    CustomButton(
-                      width: Get.width - 94,
-                      buttonText: 'LOAD MORE',
-                      isLoading: false.obs,
-                      onPressed: () {},
-                    )
-                  ],
-                ),
-              ),
-            ),
-          )
+          _buildUserList(viewModel),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSearchAndAddButton(HomeViewModel viewModel) {
+    return Row(
+      children: [
+        SearchInput(
+          textEditingController: viewModel.searchController,
+        ),
+        const SizedBox(width: 15),
+        Expanded(
+          child: CustomButton(
+            height: 29,
+            width: Get.width,
+            buttonText: 'ADD NEW',
+            isLoading: false.obs,
+            onPressed: () {},
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildUserList(HomeViewModel viewModel) {
+    return Expanded(
+      child: Visibility(
+        visible: !viewModel.isLoading,
+        replacement: const LoadingWidget(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ...List.generate(viewModel.users.length, (index) {
+                final item = viewModel.users[index];
+                return _userItem(item);
+              }),
+              CustomButton(
+                width: Get.width - 94,
+                buttonText: 'LOAD MORE',
+                isLoading: false.obs,
+                onPressed: () {},
+              ),
+              const SizedBox(height: 15),
+            ],
+          ),
+        ),
       ),
     );
   }
