@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:tots_test/app/app.dialogs.dart';
 import 'package:tots_test/app/app.locator.dart';
-import 'package:tots_test/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -44,8 +43,6 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     _bottomSheetService.showCustomSheet(
       isScrollControlled: true,
       variant: BottomSheetType.createUser,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
     );
   }
 }
