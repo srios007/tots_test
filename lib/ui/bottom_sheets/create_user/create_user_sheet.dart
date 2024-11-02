@@ -28,78 +28,97 @@ class CreateUserSheet extends StackedView<CreateUserSheetModel> {
           topRight: Radius.circular(10),
         ),
       ),
-      child: Form(
-        key: viewModel.key,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Text(
-                'Add new client',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  color: Palette.blackBottomSheet,
-                ),
-              ),
-            ),
-            const SizedBox(height: 40),
-            Center(
-              child: InkWell(
-                onTap: () {
-                  viewModel.pickImage(context);
-                },
-                child: SizedBox(
-                  height: 120,
-                  child: Image.asset(ImageRoutes.uploadImage),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            NormalInput(
-              titleText: 'First name*',
-              textEditingController: viewModel.firstNameController,
-            ),
-            const SizedBox(height: 13),
-            NormalInput(
-              titleText: 'Last name*',
-              textEditingController: viewModel.lastNameController,
-            ),
-            const SizedBox(height: 13),
-            NormalInput(
-              titleText: 'Email address*',
-              textEditingController: viewModel.emailController,
-            ),
-            const SizedBox(height: 20),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: Get.width * 0.35,
-                  child: TextButton(
-                    onPressed: Get.back,
+      child: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Form(
+              key: viewModel.key,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 10),
                     child: Text(
-                      'Cancel',
+                      'Add new client',
                       style: TextStyle(
-                        color: Palette.black.withOpacity(0.4),
-                        fontSize: 16,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: Palette.blackBottomSheet,
                       ),
                     ),
                   ),
-                ),
-                CustomButton(
-                  width: Get.width * 0.5,
-                  buttonText: 'SAVE',
-                  isLoading: false.obs,
-                  onPressed: viewModel.saveUser,
-                )
-              ],
+                  const SizedBox(height: 40),
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        viewModel.pickImage(context);
+                      },
+                      child: SizedBox(
+                        height: 120,
+                        width: 120,
+                        child: viewModel.profilePicture != null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.file(viewModel.profilePicture!,
+                                    fit: BoxFit.cover),
+                              )
+                            : Image.asset(ImageRoutes.uploadImage),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  NormalInput(
+                    titleText: 'First name*',
+                    textEditingController: viewModel.firstNameController,
+                  ),
+                  const SizedBox(height: 13),
+                  NormalInput(
+                    titleText: 'Last name*',
+                    textEditingController: viewModel.lastNameController,
+                  ),
+                  const SizedBox(height: 13),
+                  NormalInput(
+                    titleText: 'Email address*',
+                    textEditingController: viewModel.emailController,
+                  ),
+                  const SizedBox(height: 13),
+                  NormalInput(
+                    titleText: 'Address*',
+                    textEditingController: viewModel.addressController,
+                  ),
+                  const SizedBox(height: 20),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: Get.width * 0.35,
+                        child: TextButton(
+                          onPressed: Get.back,
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: Palette.black.withOpacity(0.4),
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                      CustomButton(
+                        width: Get.width * 0.5,
+                        buttonText: 'SAVE',
+                        isLoading: viewModel.isLoading,
+                        onPressed: viewModel.saveUser,
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
