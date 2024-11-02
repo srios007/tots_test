@@ -22,11 +22,11 @@ class LoginViewModel extends BaseViewModel {
     _navigationService.replaceWith(Routes.homeView);
   }
 
-  void login() async {
+  void login(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
 
     isLoading.value = true;
-
+    FocusScope.of(context).unfocus();
     final response = await _loginService.login(
       email: emailController.text,
       password: passwordController.text,
@@ -40,7 +40,7 @@ class LoginViewModel extends BaseViewModel {
       navigateToHomeView();
     } else {
       CustomSnackBars.showErrorSnackBar(
-        message: 'No es posible iniciar sesión, verifica tus credenciales',
+        message: 'Unable to log in, verify your credentials',
       );
     }
   }

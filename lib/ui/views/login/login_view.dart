@@ -14,21 +14,24 @@ class LoginView extends StackedView<LoginViewModel> {
     LoginViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: _buildAppBar(),
-      body: CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Stack(
-              children: [
-                _buildBackgroundImages(),
-                _buildForm(context, viewModel),
-              ],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: _buildAppBar(),
+        body: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Stack(
+                children: [
+                  _buildBackgroundImages(),
+                  _buildForm(context, viewModel),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -107,7 +110,7 @@ class LoginView extends StackedView<LoginViewModel> {
             CustomButton(
               buttonText: 'LOG IN',
               isLoading: viewModel.isLoading,
-              onPressed: viewModel.login,
+              onPressed: () => viewModel.login(context),
             ),
             const SizedBox(height: 20),
             const Spacer(flex: 7),
