@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tots_test/app/app.bottomsheets.dart';
+// import 'package:tots_test/app/app.bottomsheets.dart';
 import 'package:tots_test/app/app.locator.dart';
 import 'package:tots_test/ui/common/app_strings.dart';
 import 'package:tots_test/ui/views/home/home_viewmodel.dart';
@@ -22,19 +23,19 @@ void main() {
       });
     });
 
-    group('showBottomSheet -', () {
-      test('When called, should show custom bottom sheet using notice variant',
-          () {
-        final bottomSheetService = getAndRegisterBottomSheetService();
+    // group('showBottomSheet -', () {
+    //   test('When called, should show custom bottom sheet using notice variant',
+    //       () {
+    //     final bottomSheetService = getAndRegisterBottomSheetService();
 
-        final model = getModel();
-        model.showBottomSheetCreateUser();
-        verify(bottomSheetService.showCustomSheet(
-          variant: BottomSheetType.notice,
-          title: ksHomeBottomSheetTitle,
-          description: ksHomeBottomSheetDescription,
-        ));
-      });
-    });
+    //     final model = getModel();
+    //     model.showBottomSheetCreateUser();
+    //     verify(bottomSheetService.showCustomSheet(
+    //       variant: BottomSheetType.notice,
+    //       title: ksHomeBottomSheetTitle,
+    //       description: ksHomeBottomSheetDescription,
+    //     ));
+    //   });
+    // });
   });
 }

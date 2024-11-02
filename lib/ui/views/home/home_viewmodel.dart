@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:tots_test/app/app.bottomsheets.dart';
 import 'package:tots_test/app/app.dialogs.dart';
 import 'package:tots_test/app/app.locator.dart';
 import 'package:tots_test/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../../app/app.bottomsheets.dart';
 import '../../../models/models.dart';
 import '../../../services/services.dart';
 
@@ -41,10 +41,10 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
   }
 
   void showBottomSheetCreateUser() {
-    // _bottomSheetService.showCustomSheet(
-    //   variant: BottomSheetType.createUser,
-    //   title: ksHomeBottomSheetTitle,
-    //   description: ksHomeBottomSheetDescription,
-    // );
+    _bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.createUser,
+      title: ksHomeBottomSheetTitle,
+      description: ksHomeBottomSheetDescription,
+    );
   }
 }
