@@ -49,7 +49,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     );
   }
 
-  void showBottomSheet() {
+  void showBottomSheetCreateUser() {
     _bottomSheetService.showCustomSheet(
       variant: BottomSheetType.notice,
       title: ksHomeBottomSheetTitle,
