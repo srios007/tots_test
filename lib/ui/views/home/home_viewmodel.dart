@@ -25,19 +25,10 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     getUsers();
   }
 
-  getUsers() async {
+  void getUsers() async {
     _users = await UserService().getUsers();
     log('Largo de usuarios: ${_users.length}');
     _isLoading = false;
-    rebuildUi();
-  }
-
-  String get counterLabel => 'Counter is: $_counter';
-
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
     rebuildUi();
   }
 
@@ -45,15 +36,15 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     _dialogService.showCustomDialog(
       variant: DialogType.infoAlert,
       title: 'Stacked Rocks!',
-      description: 'Give stacked $_counter stars on Github',
+      description: 'Give stacked stars on Github',
     );
   }
 
   void showBottomSheetCreateUser() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
+    // _bottomSheetService.showCustomSheet(
+    //   variant: BottomSheetType.createUser,
+    //   title: ksHomeBottomSheetTitle,
+    //   description: ksHomeBottomSheetDescription,
+    // );
   }
 }
