@@ -68,7 +68,7 @@ class HomeView extends StackedView<HomeViewModel> {
         ),
         Positioned(
           right: 0,
-          top: Get.height / 4 - (Get.width * 0.4) / 2,
+          top: Get.height / 3 - (Get.width * 0.4) / 2,
           child: Image.asset(
             ImageRoutes.blurRightHome,
             width: Get.width * 0.7,

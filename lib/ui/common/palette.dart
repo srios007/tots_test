@@ -12,6 +12,7 @@ class Palette {
   static const black = Color(0xFF0D1111);
   static const blackTitle = Color(0xFF161B14);
   static const grey = Color(0xFFA3AAB1);
+  static const greySearch = Color(0xFF76757D);
   static const greySubtitle = Color(0xFF434545);
   static const white = Color(0xFFFFFFFF);
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tots_test/ui/common/common.dart';
 
+import '../ui.dart';
+
 final currencyFormat = NumberFormat.currency(symbol: r'$', decimalDigits: 0);
 final requestFormat = NumberFormat.currency(
   symbol: '',
@@ -34,9 +36,20 @@ class Styles {
     fontSize: 13,
     fontWeight: FontWeight.w300,
   );
+
+  TextStyle hintTextStyleSearch = const TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    color: Palette.greySearch,
+  );
+
   OutlineInputBorder borderTextField = OutlineInputBorder(
     borderRadius: const BorderRadius.all(Radius.circular(68)),
     borderSide: BorderSide(color: Palette.black.withOpacity(0.3)),
+  );
+  OutlineInputBorder borderTextFieldSearch = const OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(68)),
+    borderSide: BorderSide(color: Palette.greySearch),
   );
 
   OutlineInputBorder errorBorderTextField = OutlineInputBorder(

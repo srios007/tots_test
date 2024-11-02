@@ -2,7 +2,7 @@ export 'bottom_sheets/notice/notice_sheet.dart';
 export 'bottom_sheets/notice/notice_sheet_model.dart';
 export 'common/api_endoints.dart';
 export 'common/app_strings.dart';
-export 'common/common.dart';
+export 'common/icon_routes.dart';
 export 'common/image_routes.dart';
 export 'common/palette.dart';
 export 'common/text_styles.dart';
