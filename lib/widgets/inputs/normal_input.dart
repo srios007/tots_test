@@ -3,26 +3,26 @@ import 'package:get/get.dart';
 
 import '../../ui/common/common.dart';
 
-class EmailInput extends StatelessWidget {
-  const EmailInput({
+class NormalInput extends StatelessWidget {
+  const NormalInput({
     super.key,
+    required this.titleText,
     required this.textEditingController,
-    this.titleText,
     this.width,
   });
 
   final double? width;
-  final String? titleText;
+  final String titleText;
   final TextEditingController textEditingController;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? Get.width - 100,
+      width: width ?? Get.width - 50,
       child: TextFormField(
-        decoration: const InputDecoration(
-          labelText: 'Mail',
-          labelStyle: TextStyle(
+        decoration: InputDecoration(
+          labelText: titleText,
+          labelStyle: const TextStyle(
             color: Palette.black,
             fontSize: 16,
           ),
@@ -31,13 +31,11 @@ class EmailInput extends StatelessWidget {
         validator: (String? _) {
           if (textEditingController.text.isEmpty) {
             return 'Please fill in this field';
-          } else if (!GetUtils.isEmail(textEditingController.text)) {
-            return 'Please enter a valid email address';
           } else {
             return null;
           }
         },
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.none,
       ),
     );
   }

@@ -24,15 +24,16 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: _setInitialRoute(),
+      navigatorKey: StackedService.navigatorKey,
+      navigatorObservers: [StackedService.routeObserver],
+      onGenerateRoute: StackedRouter().onGenerateRoute,
       theme: ThemeData(
         textTheme: GoogleFonts.dmSansTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
-      initialRoute: _setInitialRoute(),
-      onGenerateRoute: StackedRouter().onGenerateRoute,
-      navigatorKey: StackedService.navigatorKey,
-      navigatorObservers: [StackedService.routeObserver],
     );
   }
 

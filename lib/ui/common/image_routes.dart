@@ -15,4 +15,5 @@ class ImageRoutes {
   static const String blurTopHome = 'assets/images/blur_top_home.png';
   static const String blurTopLogin = 'assets/images/blur_top.png';
   static const String logo = 'assets/images/logo.png';
+  static const String uploadImage = 'assets/images/upload_image.png';
 }
