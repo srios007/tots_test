@@ -6,34 +6,51 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tots_test/ui/ui.dart';
+import 'package:tots_test/utils/utils.dart';
 
 import '../../../services/services.dart';
 import '../../../widgets/widgets.dart';
 
 class CreateUserSheetModel extends BaseViewModel {
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final addressController = TextEditingController();
-  final imagePicker = ImagePicker();
-
-  final key = GlobalKey<FormState>();
-  File? profilePicture;
   bool hasProfilePiture = false;
   bool isLoadingProfilePicture = false;
+  File? profilePicture;
+  final addressController = TextEditingController();
+  final emailController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final imagePicker = ImagePicker();
+  final key = GlobalKey<FormState>();
+  final lastNameController = TextEditingController();
   RxBool isLoading = false.obs;
-  saveUser() {
+
+  saveUser(BuildContext context) async {
     if (key.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
       isLoading.value = true;
-      UserService().createUser(
+      rebuildUi();
+      final result = await UserService().createUser(
         firstName: firstNameController.text,
         lastName: lastNameController.text,
         email: emailController.text,
         address: addressController.text,
       );
       isLoading.value = false;
+      rebuildUi();
+      if (result) {
+        fireEventNewUSer();
+        Get.back();
+        CustomSnackBars.showSuccessSnackBar(
+          message: 'User created successfully',
+        );
+      } else {
+        CustomSnackBars.showErrorSnackBar(
+          message: 'There was an unexpected error',
+        );
+      }
     }
   }
+
+  fireEventNewUSer() => EventBus().fire(MyEvent('new_user'));
 
   pickImage(BuildContext context) {
     ImagePick().showBottomSheet(

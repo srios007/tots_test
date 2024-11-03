@@ -15,6 +15,7 @@ class CustomSnackBars {
           message: message,
           duration: const Duration(seconds: 3),
           backgroundColor: Palette.mainColor,
+          snackPosition: SnackPosition.TOP,
         ),
       );
   static showErrorSnackBar({required String message}) => Get.showSnackbar(

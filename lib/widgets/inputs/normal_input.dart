@@ -35,7 +35,6 @@ class NormalInput extends StatelessWidget {
             return null;
           }
         },
-        keyboardType: TextInputType.none,
       ),
     );
   }

@@ -38,7 +38,7 @@ class UserService {
       },
       requiresAuth: true,
     );
-    log('Response: ${response.data}');
-    return response.data != null;
+    log('Response: ${response}');
+    return response != null;
   }
 }
