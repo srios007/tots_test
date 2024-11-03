@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tots_test/app/app.dialogs.dart';
 import 'package:tots_test/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
@@ -11,6 +11,7 @@ import 'package:tots_test/utils/utils.dart';
 import '../../../app/app.bottomsheets.dart';
 import '../../../models/models.dart';
 import '../../../services/services.dart';
+import '../../ui.dart';
 
 class HomeViewModel extends BaseViewModel implements Initialisable {
   final _dialogService = locator<DialogService>();
@@ -59,7 +60,6 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     rebuildUi();
     _users = await UserService().getUsers();
     _filteredUsers = _users;
-    log('Largo de usuarios: ${_users.length}');
     _isLoading = false;
     rebuildUi();
   }
@@ -91,5 +91,20 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
           .toList();
     }
     rebuildUi();
+  }
+
+  void deleteUser(String id) async {
+    final isDeleted = await UserService().deleteUser(id);
+    if (isDeleted) {
+      Get.back();
+      CustomSnackBars.showSuccessSnackBar(
+        message: 'User deleted successfully',
+      );
+      getUsers();
+    } else {
+      CustomSnackBars.showErrorSnackBar(
+        message: 'There was an unexpected error',
+      );
+    }
   }
 }

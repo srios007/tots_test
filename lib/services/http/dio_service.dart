@@ -97,4 +97,25 @@ class DioService {
       return null;
     }
   }
+
+  /// Delete Method
+  Future<dynamic> delete(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    ProgressCallback? onReceiveProgress,
+    bool requiresAuth = false,
+  }) async {
+    try {
+      final dio = await dioConfig(requiresAuth: requiresAuth);
+      final Response response = await dio.delete(
+        path,
+        queryParameters: queryParameters,
+      );
+      return response.data;
+    } on DioException catch (e) {
+      final error = DioExceptions.fromDioError(e);
+      log('error: ${error.errorMessage}');
+      return null;
+    }
+  }
 }

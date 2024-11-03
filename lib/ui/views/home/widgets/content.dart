@@ -107,7 +107,7 @@ class Content extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${item.firstname!} ${item.lastname!}',
+                '${item.firstname ?? 'N/A'} ${item.lastname ?? 'N/A'}',
                 style: const TextStyle(
                   color: Palette.black,
                   fontSize: 14,
@@ -115,7 +115,7 @@ class Content extends StatelessWidget {
                 ),
               ),
               Text(
-                item.email!,
+                item.email ?? 'N/A',
                 style: const TextStyle(
                   color: Palette.greySubtitle,
                   fontSize: 12,
@@ -125,12 +125,62 @@ class Content extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          InkWell(
-            onTap: () {},
-            child: const Icon(Icons.more_vert),
-          ),
+          _popUpMenuButton(item),
           const SizedBox(width: 15),
         ],
+      ),
+    );
+  }
+
+  PopupMenuButton<int> _popUpMenuButton(User item) {
+    return PopupMenuButton<int>(
+      icon: const Icon(Icons.more_vert),
+      onSelected: (int result) {
+        switch (result) {
+          case 0:
+            break;
+          case 1:
+            viewModel.deleteUser(item.id!.toString());
+            break;
+        }
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
+        const PopupMenuItem<int>(
+          value: 0,
+          child: Row(
+            children: [
+              Icon(Icons.edit, color: Colors.white),
+              SizedBox(width: 8),
+              Text(
+                'Edit',
+                style: TextStyle(
+                  color: Palette.white,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+        ),
+        const PopupMenuItem<int>(
+          value: 1,
+          child: Row(
+            children: [
+              Icon(Icons.delete, color: Colors.white),
+              SizedBox(width: 8),
+              Text(
+                'Delete',
+                style: TextStyle(
+                  color: Palette.white,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+      color: Colors.black,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
     );
   }

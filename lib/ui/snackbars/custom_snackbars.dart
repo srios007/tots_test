@@ -11,7 +11,7 @@ class CustomSnackBars {
   static final CustomSnackBars _instance = CustomSnackBars._internal();
   static showSuccessSnackBar({required String message}) => Get.showSnackbar(
         GetSnackBar(
-          title: '¡Listo!',
+          title: 'Success',
           message: message,
           duration: const Duration(seconds: 3),
           backgroundColor: Palette.mainColor,

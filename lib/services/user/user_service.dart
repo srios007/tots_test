@@ -38,7 +38,15 @@ class UserService {
       },
       requiresAuth: true,
     );
-    log('Response: ${response}');
+    return response != null;
+  }
+
+  Future<bool> deleteUser(String id) async {
+    final response = await DioService.instance.delete(
+      '${ApiEndpoints.users}/$id',
+      requiresAuth: true,
+    );
+    log('response: $response');
     return response != null;
   }
 }
