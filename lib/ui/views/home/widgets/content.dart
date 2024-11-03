@@ -45,6 +45,7 @@ class Content extends StatelessWidget {
       children: [
         SearchInput(
           textEditingController: viewModel.searchController,
+          onChanged: viewModel.onSearchChanged,
         ),
         const SizedBox(width: 15),
         Expanded(

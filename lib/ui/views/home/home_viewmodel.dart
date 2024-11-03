@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -15,15 +16,33 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
   List<User> _users = [];
-  List<User> get users => _users;
+  List<User> _filteredUsers = [];
+  List<User> get users => _filteredUsers;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
   final searchController = TextEditingController();
+  Timer? _debounce;
 
   @override
   void initialise() {
     getUsers();
     listenToEvent();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) {
+      _debounce?.cancel();
+    }
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      onSearchUser(query);
+    });
   }
 
   void listenToEvent() {
@@ -39,6 +58,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     _isLoading = true;
     rebuildUi();
     _users = await UserService().getUsers();
+    _filteredUsers = _users;
     log('Largo de usuarios: ${_users.length}');
     _isLoading = false;
     rebuildUi();
@@ -57,5 +77,19 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
       isScrollControlled: true,
       variant: BottomSheetType.createUser,
     );
+  }
+
+  void onSearchUser(String query) {
+    if (query.isEmpty) {
+      _filteredUsers = _users;
+    } else {
+      _filteredUsers = _users
+          .where((user) =>
+              user.firstname!.toLowerCase().contains(query.toLowerCase()) ||
+              user.lastname!.toLowerCase().contains(query.toLowerCase()) ||
+              user.email!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    rebuildUi();
   }
 }
