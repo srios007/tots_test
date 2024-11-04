@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "344530313038",
+    "project_id": "tots-9cf1a",
+    "storage_bucket": "tots-9cf1a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344530313038:android:38e2df8c255fd723ba481f",
+        "android_client_info": {
+          "package_name": "com.example.tots_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyXim_SCjBPUlL1LuBgUL1iRbchJAr0Rs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
