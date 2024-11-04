@@ -103,7 +103,7 @@ class Content extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(width: 15),
-          CachedNetworkImageWidget(imageUrl: item.photo ?? ''),
+          ClipOval(child: CachedNetworkImageWidget(imageUrl: item.photo ?? '')),
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
