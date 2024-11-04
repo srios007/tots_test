@@ -1,51 +1,46 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:tots_test/ui/ui.dart';
 import 'package:tots_test/utils/utils.dart';
 
-import '../../../models/user.dart';
 import '../../../services/services.dart';
 import '../../../widgets/widgets.dart';
 
 class CreateUserSheetModel extends BaseViewModel {
   bool hasProfilePiture = false;
-  bool isLoadingProfilePicture = false;
   File? profilePicture;
   final addressController = TextEditingController();
   final emailController = TextEditingController();
   final firstNameController = TextEditingController();
-  final imagePicker = ImagePicker();
   final key = GlobalKey<FormState>();
   final lastNameController = TextEditingController();
   RxBool isLoading = false.obs;
   bool isEditing = false;
-  final User? user;
-  CreateUserSheetModel({this.user}) {
-    if (user != null) {
-      firstNameController.text = user!.firstname ?? '';
-      lastNameController.text = user!.lastname ?? '';
-      emailController.text = user!.email ?? '';
-      addressController.text = user!.address ?? '';
-      isEditing = true;
-      rebuildUi();
-    }
-  }
+  final imageService = ImageService();
 
-  saveUser(BuildContext context) async {
+  /// Saves the user after validating the form and uploading the profile picture.
+  void saveUser(BuildContext context) async {
     if (key.currentState!.validate()) {
+      if (profilePicture == null) {
+        CustomSnackBars.showErrorSnackBar(
+          message: 'Profile picture is required',
+        );
+        return;
+      }
+
       FocusScope.of(context).unfocus();
       isLoading.value = true;
       rebuildUi();
+      final imageUrl = await imageService.uploadImage(profilePicture!);
       final result = await UserService().createUser(
         firstName: firstNameController.text,
         lastName: lastNameController.text,
         email: emailController.text,
         address: addressController.text,
+        imageUrl: imageUrl,
       );
       isLoading.value = false;
       rebuildUi();
@@ -63,36 +58,34 @@ class CreateUserSheetModel extends BaseViewModel {
     }
   }
 
-  fireEventNewUSer() => EventBus().fire(MyEvent('new_user'));
+  /// Fires an event indicating that a new user has been created.
+  void fireEventNewUSer() => EventBus().fire(MyEvent('new_user'));
 
-  pickImage(BuildContext context) {
+  /// Shows a bottom sheet to pick an image from the camera or gallery.
+  void pickImage(BuildContext context) {
     ImagePick().showBottomSheet(
       context: context,
-      fromPhoto: () => pickPicture(isCamera: true),
-      fromGallery: () => pickPicture(),
+      fromPhoto: () => imageService.pickImage(
+        onImagePicked: (image) {
+          profilePicture = image;
+          hasProfilePiture = true;
+          rebuildUi();
+        },
+        onError: (message) {
+          CustomSnackBars.showErrorSnackBar(message: message);
+        },
+        isCamera: true,
+      ),
+      fromGallery: () => imageService.pickImage(
+        onImagePicked: (image) {
+          profilePicture = image;
+          hasProfilePiture = true;
+          rebuildUi();
+        },
+        onError: (message) {
+          CustomSnackBars.showErrorSnackBar(message: message);
+        },
+      ),
     );
-  }
-
-  /// Escoge una imagen de la galería o la cámara
-  pickPicture({bool isCamera = false}) async {
-    try {
-      isLoadingProfilePicture = true;
-      rebuildUi();
-      final result = await imagePicker.pickImage(
-        source: isCamera ? ImageSource.camera : ImageSource.gallery,
-      );
-      if (result != null) {
-        profilePicture = File(result.path);
-        hasProfilePiture = true;
-      }
-      isLoadingProfilePicture = false;
-      rebuildUi();
-    } catch (e) {
-      log('Error: $e');
-      CustomSnackBars.showErrorSnackBar(
-        message: 'There was an unexpected error',
-      );
-      isLoadingProfilePicture = false;
-    }
   }
 }

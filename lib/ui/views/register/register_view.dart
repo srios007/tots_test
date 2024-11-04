@@ -90,7 +90,7 @@ class RegisterView extends StackedView<RegisterViewModel> {
               onPressed: () => viewModel.register(context),
             ),
             const SizedBox(height: 20),
-                        TextButton(
+            TextButton(
               onPressed: () => viewModel.navigateToLogin(),
               child: const Text(
                 "Already have an account? Log in",

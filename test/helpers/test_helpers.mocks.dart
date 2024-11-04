@@ -12,6 +12,7 @@ import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:stacked_services/stacked_services.dart' as _i2;
 import 'package:tots_test/models/models.dart' as _i8;
 import 'package:tots_test/services/services.dart' as _i7;
+import 'package:tots_test/services/storage/storage_service.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -673,10 +674,10 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
       );
 }
 
-/// A class which mocks [LoginService].
+/// A class which mocks [AuthService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoginService extends _i1.Mock implements _i7.AuthService {
+class MockAuthService extends _i1.Mock implements _i7.AuthService {
   @override
   _i5.Future<String?> login({
     required String? email,
@@ -694,6 +695,26 @@ class MockLoginService extends _i1.Mock implements _i7.AuthService {
         returnValue: _i5.Future<String?>.value(),
         returnValueForMissingStub: _i5.Future<String?>.value(),
       ) as _i5.Future<String?>);
+
+  @override
+  _i5.Future<bool> register({
+    required String? email,
+    required String? password,
+    required String? firstName,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #register,
+          [],
+          {
+            #email: email,
+            #password: password,
+            #firstName: firstName,
+          },
+        ),
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 }
 
 /// A class which mocks [UserService].
@@ -717,6 +738,7 @@ class MockUserService extends _i1.Mock implements _i7.UserService {
     required String? lastName,
     required String? email,
     required String? address,
+    required String? imageUrl,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -743,3 +765,9 @@ class MockUserService extends _i1.Mock implements _i7.UserService {
         returnValueForMissingStub: _i5.Future<bool>.value(false),
       ) as _i5.Future<bool>);
 }
+
+/// A class which mocks [UploadImageService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUploadImageService extends _i1.Mock
+    implements _i9.StorageService {}

@@ -25,6 +25,7 @@ class UserService {
     required String lastName,
     required String email,
     required String address,
+    required String imageUrl,
   }) async {
     final response = await DioService.instance.post(
       ApiEndpoints.clients,
@@ -33,11 +34,12 @@ class UserService {
         'lastname': lastName,
         'email': email,
         'address': address,
-        'photo': '',
+        'photo': imageUrl,
         'caption': ''
       },
       requiresAuth: true,
     );
+
     return response != null;
   }
 

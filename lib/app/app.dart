@@ -7,6 +7,7 @@ import 'package:tots_test/services/login/auth_service.dart';
 import 'package:tots_test/services/user/user_service.dart';
 import 'package:tots_test/ui/bottom_sheets/create_user/create_user_sheet.dart';
 import 'package:tots_test/ui/views/register/register_view.dart';
+import 'package:tots_test/services/storage/storage_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -22,6 +23,7 @@ import 'package:tots_test/ui/views/register/register_view.dart';
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: AuthService),
     LazySingleton(classType: UserService),
+    LazySingleton(classType: StorageService),
 // @stacked-service
   ],
   bottomsheets: [

@@ -4,6 +4,7 @@ import 'package:tots_test/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:tots_test/services/login/auth_service.dart';
 import 'package:tots_test/services/user/user_service.dart';
+import 'package:tots_test/services/storage/storage_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -14,6 +15,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<AuthService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<UserService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<StorageService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -22,6 +24,7 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterLoginService();
   getAndRegisterUserService();
+  getAndRegisterUploadImageService();
 // @stacked-mock-register
 }
 
@@ -75,9 +78,9 @@ MockDialogService getAndRegisterDialogService() {
   return service;
 }
 
-MockLoginService getAndRegisterLoginService() {
+MockAuthService getAndRegisterLoginService() {
   _removeRegistrationIfExists<AuthService>();
-  final service = MockLoginService();
+  final service = MockAuthService();
   locator.registerSingleton<AuthService>(service);
   return service;
 }
@@ -86,6 +89,13 @@ MockUserService getAndRegisterUserService() {
   _removeRegistrationIfExists<UserService>();
   final service = MockUserService();
   locator.registerSingleton<UserService>(service);
+  return service;
+}
+
+MockUploadImageService getAndRegisterUploadImageService() {
+  _removeRegistrationIfExists<StorageService>();
+  final service = MockUploadImageService();
+  locator.registerSingleton<StorageService>(service);
   return service;
 }
 // @stacked-mock-create
