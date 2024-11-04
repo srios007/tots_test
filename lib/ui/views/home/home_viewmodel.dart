@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -35,17 +33,20 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
 
   @override
   void initialise() {
+    /// Initializes the ViewModel by fetching users and listening to events.
     getUsers();
     listenToEvent();
   }
 
   @override
   void dispose() {
+    /// Disposes the ViewModel by cleaning up resources.
     searchController.dispose();
     _debounce?.cancel();
     super.dispose();
   }
 
+  /// Called when the search query changes.
   onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) {
       _debounce?.cancel();
@@ -55,6 +56,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     });
   }
 
+  /// Listens to events from the EventBus.
   void listenToEvent() {
     EventBus()
         .stream
@@ -64,6 +66,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     });
   }
 
+  /// Fetches users from the UserService.
   void getUsers() async {
     _isLoading = true;
     rebuildUi();
@@ -76,6 +79,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     rebuildUi();
   }
 
+  /// Shows a custom dialog.
   void showDialog() {
     _dialogService.showCustomDialog(
       variant: DialogType.infoAlert,
@@ -84,6 +88,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     );
   }
 
+  /// Shows the bottom sheet to create a new user.
   void showBottomSheetCreateUser() {
     _bottomSheetService.showCustomSheet(
       isScrollControlled: true,
@@ -91,15 +96,18 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     );
   }
 
+  /// Shows the bottom sheet to edit an existing user.
   void showBottomSheetEditUser(User user) {
     Get.back();
     _bottomSheetService.showCustomSheet(
       isScrollControlled: true,
       variant: BottomSheetType.createUser,
+      // ignore: deprecated_member_use
       customData: user.toJson(),
     );
   }
 
+  /// Filters users based on the search query.
   void onSearchUser(String query) {
     if (query.isEmpty) {
       _filteredUsers = _users;
@@ -117,6 +125,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     rebuildUi();
   }
 
+  /// Deletes a user by ID.
   void deleteUser(String id) async {
     final isDeleted = await UserService().deleteUser(id);
     if (isDeleted) {
@@ -124,7 +133,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
       CustomSnackBars.showSuccessSnackBar(
         message: 'User deleted successfully',
       );
-      getUsers();
+      deleteUserLocally(id);
     } else {
       CustomSnackBars.showErrorSnackBar(
         message: 'There was an unexpected error',
@@ -132,6 +141,15 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     }
   }
 
+  /// Deletes a user locally by ID.
+  void deleteUserLocally(String id) {
+    _users.removeWhere((user) => user.id.toString() == id);
+    _filteredUsers.removeWhere((user) => user.id.toString() == id);
+    _displayedUsers.removeWhere((user) => user.id.toString() == id);
+    rebuildUi();
+  }
+
+  /// Loads more users into the displayed list.
   void loadMoreUsers() {
     final nextCount = _currentCount + _itemsPerPage;
     if (nextCount <= _filteredUsers.length) {
@@ -145,6 +163,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     rebuildUi();
   }
 
+  /// Logs out the user by removing the token and navigating to the login view.
   void logout() {
     GetStorage().remove('token');
     _navigationService.replaceWith(Routes.loginView);
