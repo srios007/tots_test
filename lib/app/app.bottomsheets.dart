@@ -5,9 +5,9 @@
 // **************************************************************************
 
 import 'package:stacked_services/stacked_services.dart';
-import 'package:tots_test/ui/bottom_sheets/create_user/create_user_sheet.dart';
 
 import 'app.locator.dart';
+import '../ui/bottom_sheets/create_user/create_user_sheet.dart';
 
 enum BottomSheetType {
   createUser,
@@ -18,7 +18,7 @@ void setupBottomSheetUi() {
 
   final Map<BottomSheetType, SheetBuilder> builders = {
     BottomSheetType.createUser: (context, request, completer) =>
-        CreateUserSheet(),
+        const CreateUserSheet(),
   };
 
   bottomsheetService.setCustomSheetBuilders(builders);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tots_test/models/user.dart';
 import 'package:tots_test/widgets/widgets.dart';
 
 import '../../ui.dart';
@@ -9,8 +10,9 @@ import 'create_user_sheet_model.dart';
 class CreateUserSheet extends StackedView<CreateUserSheetModel> {
   const CreateUserSheet({
     Key? key,
+    this.user,
   }) : super(key: key);
-
+  final User? user;
   @override
   Widget builder(
     BuildContext context,
@@ -39,11 +41,11 @@ class CreateUserSheet extends StackedView<CreateUserSheetModel> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
                       child: Text(
-                        'Add new client',
-                        style: TextStyle(
+                        viewModel.isEditing ? 'Edit client' : 'Add new client',
+                        style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w500,
                           color: Palette.blackBottomSheet,
@@ -129,5 +131,5 @@ class CreateUserSheet extends StackedView<CreateUserSheetModel> {
 
   @override
   CreateUserSheetModel viewModelBuilder(BuildContext context) =>
-      CreateUserSheetModel();
+      CreateUserSheetModel(user: user);
 }

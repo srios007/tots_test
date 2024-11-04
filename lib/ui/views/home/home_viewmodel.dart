@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -76,6 +78,15 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
     _bottomSheetService.showCustomSheet(
       isScrollControlled: true,
       variant: BottomSheetType.createUser,
+    );
+  }
+
+  void showBottomSheetEditUser(User user) {
+    Get.back();
+    _bottomSheetService.showCustomSheet(
+      isScrollControlled: true,
+      variant: BottomSheetType.createUser,
+      customData: user.toJson(),
     );
   }
 

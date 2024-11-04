@@ -1,3 +1,4 @@
+export 'backgorund/auth_background_images.dart';
 export 'buttons/buttons.dart';
 export 'buttons/custom_button.dart';
 export 'cached_network_image/cached_network_image_widget.dart';

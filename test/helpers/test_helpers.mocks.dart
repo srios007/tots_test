@@ -676,7 +676,7 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
 /// A class which mocks [LoginService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoginService extends _i1.Mock implements _i7.LoginService {
+class MockLoginService extends _i1.Mock implements _i7.AuthService {
   @override
   _i5.Future<String?> login({
     required String? email,
@@ -710,4 +710,36 @@ class MockUserService extends _i1.Mock implements _i7.UserService {
         returnValueForMissingStub:
             _i5.Future<List<_i8.User>>.value(<_i8.User>[]),
       ) as _i5.Future<List<_i8.User>>);
+
+  @override
+  _i5.Future<bool> createUser({
+    required String? firstName,
+    required String? lastName,
+    required String? email,
+    required String? address,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createUser,
+          [],
+          {
+            #firstName: firstName,
+            #lastName: lastName,
+            #email: email,
+            #address: address,
+          },
+        ),
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
+
+  @override
+  _i5.Future<bool> deleteUser(String? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteUser,
+          [id],
+        ),
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
 }

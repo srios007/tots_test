@@ -1,50 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:tots_test/ui/ui.dart';
+import 'package:tots_test/app/app.locator.dart';
+import 'package:tots_test/app/app.router.dart';
+import 'package:tots_test/ui/snackbars/custom_snackbars.dart';
 
-import '../../../app/app.locator.dart';
-import '../../../app/app.router.dart';
 import '../../../services/services.dart';
 
-class LoginViewModel extends BaseViewModel {
+class RegisterViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _loginService = locator<AuthService>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
 
   RxBool isLoading = false.obs;
 
-  void navigateToHomeView() {
-    _navigationService.replaceWith(Routes.homeView);
+  void navigateToLoginView() {
+    _navigationService.replaceWith(Routes.loginView);
   }
 
-  void navigateToRegister() {
-    _navigationService.navigateTo(Routes.registerView);
+  void navigateToLogin() {
+    _navigationService.replaceWith(Routes.loginView);
   }
 
-  void login(BuildContext context) async {
+  void register(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
 
     isLoading.value = true;
     FocusScope.of(context).unfocus();
-    final response = await _loginService.login(
+    final response = await _loginService.register(
       email: emailController.text,
       password: passwordController.text,
+      firstName: nameController.text,
     );
 
     isLoading.value = false;
 
-    if (response != null) {
-      final box = GetStorage();
-      box.write('token', response);
-      navigateToHomeView();
+    if (response) {
+      CustomSnackBars.showSuccessSnackBar(
+        message: 'User registered successfully, please login',
+      );
+      navigateToLoginView();
     } else {
       CustomSnackBars.showErrorSnackBar(
-        message: 'Unable to log in, verify your credentials',
+        message: 'Unable to register, verify your inputs',
       );
     }
   }

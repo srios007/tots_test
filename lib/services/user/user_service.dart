@@ -8,7 +8,7 @@ import '../../ui/common/common.dart';
 class UserService {
   Future<List<User>> getUsers() async {
     final response = await DioService.instance.get(
-      ApiEndpoints.users,
+      ApiEndpoints.clients,
       requiresAuth: true,
     );
     if (response.data != null) {
@@ -27,7 +27,7 @@ class UserService {
     required String address,
   }) async {
     final response = await DioService.instance.post(
-      ApiEndpoints.users,
+      ApiEndpoints.clients,
       data: {
         'firstname': firstName,
         'lastname': lastName,
@@ -43,7 +43,7 @@ class UserService {
 
   Future<bool> deleteUser(String id) async {
     final response = await DioService.instance.delete(
-      '${ApiEndpoints.users}/$id',
+      '${ApiEndpoints.clients}/$id',
       requiresAuth: true,
     );
     log('response: $response');

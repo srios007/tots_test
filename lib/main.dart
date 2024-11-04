@@ -39,7 +39,7 @@ class MainApp extends StatelessWidget {
 
   String _setInitialRoute() {
     final box = GetStorage();
-    if (box.hasData('token')) {
+    if (!box.hasData('token')) {
       return Routes.homeView;
     }
     return Routes.loginView;

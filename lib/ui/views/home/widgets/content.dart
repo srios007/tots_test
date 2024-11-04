@@ -138,6 +138,7 @@ class Content extends StatelessWidget {
       onSelected: (int result) {
         switch (result) {
           case 0:
+            viewModel.showBottomSheetEditUser(item);
             break;
           case 1:
             viewModel.deleteUser(item.id!.toString());

@@ -8,6 +8,7 @@ import 'package:stacked/stacked.dart';
 import 'package:tots_test/ui/ui.dart';
 import 'package:tots_test/utils/utils.dart';
 
+import '../../../models/user.dart';
 import '../../../services/services.dart';
 import '../../../widgets/widgets.dart';
 
@@ -22,6 +23,18 @@ class CreateUserSheetModel extends BaseViewModel {
   final key = GlobalKey<FormState>();
   final lastNameController = TextEditingController();
   RxBool isLoading = false.obs;
+  bool isEditing = false;
+  final User? user;
+  CreateUserSheetModel({this.user}) {
+    if (user != null) {
+      firstNameController.text = user!.firstname ?? '';
+      lastNameController.text = user!.lastname ?? '';
+      emailController.text = user!.email ?? '';
+      addressController.text = user!.address ?? '';
+      isEditing = true;
+      rebuildUi();
+    }
+  }
 
   saveUser(BuildContext context) async {
     if (key.currentState!.validate()) {

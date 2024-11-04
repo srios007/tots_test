@@ -3,6 +3,10 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:tots_test/app/app.locator.dart';
+import 'package:tots_test/app/app.router.dart';
 
 import 'dio_exceptions.dart';
 
@@ -28,13 +32,18 @@ class DioService {
     dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
 
     if (requiresAuth) {
-      if (dotenv.env['TOKEN'] != null) {
+      final box = GetStorage();
+      final token = box.read('token');
+      if (token != null) {
         dio.interceptors.add(InterceptorsWrapper(
           onRequest: (options, handler) {
-            options.headers['Authorization'] = 'Bearer ${dotenv.env['TOKEN']}';
+            options.headers['Authorization'] = 'Bearer $token';
             return handler.next(options);
           },
         ));
+      } else {
+        final navigationService = locator<NavigationService>();
+        navigationService.replaceWith(Routes.loginView);
       }
     }
 

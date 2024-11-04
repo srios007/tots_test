@@ -1,7 +1,6 @@
 import 'dart:async';
 
 class EventBus {
-
   static final EventBus _instance = EventBus._internal();
 
   factory EventBus() => _instance;

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
+import 'package:tots_test/widgets/widgets.dart';
 
-import '../../../widgets/widgets.dart';
 import '../../ui.dart';
+import 'register_viewmodel.dart';
 
-class LoginView extends StackedView<LoginViewModel> {
-  const LoginView({Key? key}) : super(key: key);
+class RegisterView extends StackedView<RegisterViewModel> {
+  const RegisterView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    LoginViewModel viewModel,
+    RegisterViewModel viewModel,
     Widget? child,
   ) {
     return GestureDetector(
@@ -43,7 +44,7 @@ class LoginView extends StackedView<LoginViewModel> {
     );
   }
 
-  Widget _buildForm(BuildContext context, LoginViewModel viewModel) {
+  Widget _buildForm(BuildContext context, RegisterViewModel viewModel) {
     return SizedBox(
       width: Get.width,
       child: Form(
@@ -59,7 +60,7 @@ class LoginView extends StackedView<LoginViewModel> {
             const SizedBox(height: 20),
             const Spacer(flex: 2),
             Text(
-              'LOG IN',
+              'REGISTER',
               style: TextStyle(
                 color: Palette.black.withOpacity(0.85),
                 fontSize: 12,
@@ -68,6 +69,12 @@ class LoginView extends StackedView<LoginViewModel> {
               ),
             ),
             const Spacer(),
+            const SizedBox(height: 20),
+            NormalInput(
+              textEditingController: viewModel.nameController,
+              titleText: 'Name',
+              width: Get.width - 100,
+            ),
             const SizedBox(height: 20),
             EmailInput(
               textEditingController: viewModel.emailController,
@@ -78,15 +85,15 @@ class LoginView extends StackedView<LoginViewModel> {
             ),
             const SizedBox(height: 50),
             CustomButton(
-              buttonText: 'LOG IN',
+              buttonText: 'REGISTER',
               isLoading: viewModel.isLoading,
-              onPressed: () => viewModel.login(context),
+              onPressed: () => viewModel.register(context),
             ),
             const SizedBox(height: 20),
-            TextButton(
-              onPressed: () => viewModel.navigateToRegister(),
+                        TextButton(
+              onPressed: () => viewModel.navigateToLogin(),
               child: const Text(
-                "Don't have an account? Register",
+                "Already have an account? Log in",
                 style: TextStyle(color: Palette.greySearch),
               ),
             ),
@@ -99,5 +106,8 @@ class LoginView extends StackedView<LoginViewModel> {
   }
 
   @override
-  LoginViewModel viewModelBuilder(BuildContext context) => LoginViewModel();
+  RegisterViewModel viewModelBuilder(
+    BuildContext context,
+  ) =>
+      RegisterViewModel();
 }
