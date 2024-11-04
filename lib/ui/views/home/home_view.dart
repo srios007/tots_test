@@ -22,6 +22,14 @@ class HomeView extends StackedView<HomeViewModel> {
               hasScrollBody: false,
               child: Stack(
                 children: [
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: IconButton(
+                      icon: const Icon(Icons.logout),
+                      onPressed: viewModel.logout,
+                    ),
+                  ),
                   const BackgroundImages(),
                   Content(viewModel: viewModel),
                 ],

@@ -73,11 +73,14 @@ class Content extends StatelessWidget {
                 final item = viewModel.users[index];
                 return _userItem(item);
               }),
-              CustomButton(
-                width: Get.width - 94,
-                buttonText: 'LOAD MORE',
-                isLoading: false.obs,
-                onPressed: () {},
+              Visibility(
+                visible: viewModel.hasMoreUsers,
+                child: CustomButton(
+                  width: Get.width - 94,
+                  buttonText: 'LOAD MORE',
+                  isLoading: false.obs,
+                  onPressed: viewModel.loadMoreUsers,
+                ),
               ),
               const SizedBox(height: 15),
             ],
