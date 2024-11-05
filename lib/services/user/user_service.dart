@@ -43,6 +43,30 @@ class UserService {
     return response != null;
   }
 
+  Future<bool> editUser({
+    required String id,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String address,
+    required String imageUrl,
+  }) async {
+    final response = await DioService.instance.put(
+      '${ApiEndpoints.clients}/$id',
+      data: {
+        'firstname': firstName,
+        'lastname': lastName,
+        'email': email,
+        'address': address,
+        'photo': imageUrl,
+        'caption': ''
+      },
+      requiresAuth: true,
+    );
+
+    return response != null;
+  }
+
   Future<bool> deleteUser(String id) async {
     final response = await DioService.instance.delete(
       '${ApiEndpoints.clients}/$id',

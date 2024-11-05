@@ -4,6 +4,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
+import 'dart:io' as _i9;
 import 'dart:ui' as _i6;
 
 import 'package:flutter/material.dart' as _i4;
@@ -12,7 +13,6 @@ import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:stacked_services/stacked_services.dart' as _i2;
 import 'package:tots_test/models/models.dart' as _i8;
 import 'package:tots_test/services/services.dart' as _i7;
-import 'package:tots_test/services/storage/storage_service.dart' as _i9;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -749,6 +749,7 @@ class MockUserService extends _i1.Mock implements _i7.UserService {
             #lastName: lastName,
             #email: email,
             #address: address,
+            #imageUrl: imageUrl,
           },
         ),
         returnValue: _i5.Future<bool>.value(false),
@@ -766,8 +767,41 @@ class MockUserService extends _i1.Mock implements _i7.UserService {
       ) as _i5.Future<bool>);
 }
 
-/// A class which mocks [UploadImageService].
+/// A class which mocks [StorageService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockUploadImageService extends _i1.Mock
-    implements _i9.StorageService {}
+class MockStorageService extends _i1.Mock implements _i7.StorageService {
+  @override
+  _i5.Future<String> uploadFile(_i9.File? file) => (super.noSuchMethod(
+        Invocation.method(
+          #uploadFile,
+          [file],
+        ),
+        returnValue: _i5.Future<String>.value(_i3.dummyValue<String>(
+          this,
+          Invocation.method(
+            #uploadFile,
+            [file],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<String>.value(_i3.dummyValue<String>(
+          this,
+          Invocation.method(
+            #uploadFile,
+            [file],
+          ),
+        )),
+      ) as _i5.Future<String>);
+
+  @override
+  _i5.Future<bool> deleteImage({required dynamic path}) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteImage,
+          [],
+          {#path: path},
+        ),
+        returnValue: _i5.Future<bool>.value(false),
+        returnValueForMissingStub: _i5.Future<bool>.value(false),
+      ) as _i5.Future<bool>);
+}

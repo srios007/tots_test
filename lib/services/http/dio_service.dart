@@ -107,6 +107,33 @@ class DioService {
     }
   }
 
+  /// Put Method
+  Future<dynamic> put(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+    bool requiresAuth = false,
+    String? baseUrl,
+  }) async {
+    try {
+      final dio = await dioConfig(requiresAuth: requiresAuth);
+      final Response response = await dio.put(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
+      return response.data;
+    } on DioException catch (e) {
+      final error = DioExceptions.fromDioError(e);
+      log('error: ${error.errorMessage}');
+      return null;
+    }
+  }
+
   /// Delete Method
   Future<dynamic> delete(
     String path, {

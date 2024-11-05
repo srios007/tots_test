@@ -7,6 +7,7 @@ import 'package:tots_test/app/app.dialogs.dart';
 import 'package:tots_test/app/app.locator.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:tots_test/ui/views/home/services/user_edit_service.dart';
 import 'package:tots_test/utils/utils.dart';
 
 import '../../../app/app.bottomsheets.dart';
@@ -19,6 +20,8 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
   final _dialogService = locator<DialogService>();
   final _bottomSheetService = locator<BottomSheetService>();
   final _navigationService = locator<NavigationService>();
+  final _userEditService = locator<UserEditService>();
+
   bool _isLoading = false;
   bool get hasMoreUsers => _currentCount < _filteredUsers.length;
   bool get isLoading => _isLoading;
@@ -30,6 +33,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
   List<User> _users = [];
   List<User> get users => _displayedUsers;
   Timer? _debounce;
+  final ValueNotifier<User?> selectedUserNotifier = ValueNotifier<User?>(null);
 
   @override
   void initialise() {
@@ -99,11 +103,10 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
   /// Shows the bottom sheet to edit an existing user.
   void showBottomSheetEditUser(User user) {
     Get.back();
+    _userEditService.selectUser(user);
     _bottomSheetService.showCustomSheet(
       isScrollControlled: true,
-      variant: BottomSheetType.createUser,
-      // ignore: deprecated_member_use
-      customData: user.toJson(),
+      variant: BottomSheetType.editUser,
     );
   }
 
