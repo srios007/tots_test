@@ -13,7 +13,9 @@ dependencies:
   cached_network_image: ^3.3.1
   dio_cache_interceptor: ^3.5.0
   dio: ^5.4.3+1
+  firebase_storage: ^12.3.4
   flutter_dotenv: ^5.1.0
+  flutter_image_compress: ^2.3.0
   flutter_native_splash: ^2.4.1
   flutter_svg: ^2.0.11
   get_storage: ^2.1.1
@@ -23,13 +25,11 @@ dependencies:
   intl: ^0.19.0
   json_annotation: ^4.9.0
   loading_animation_widget: ^1.2.0+4
+  path_provider: ^2.1.5
   permission_handler: ^11.3.1
   stacked_services: ^1.1.0
   stacked: ^3.4.0
   uuid: ^4.5.1
-  firebase_storage: ^12.3.4
-  flutter_image_compress: ^2.3.0
-  path_provider: ^2.1.5
 
 dev_dependencies:
   build_runner: ^2.4.5
@@ -46,4 +46,10 @@ flutter:
   assets:
     - .env
     - assets/images/
-    - assets/icons/search.svg        
+    - assets/icons/search.svg   
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/logo.png
+  android_12:
+    image: assets/images/logo.png     
