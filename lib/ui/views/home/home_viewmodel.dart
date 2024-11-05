@@ -17,34 +17,32 @@ import '../../../services/services.dart';
 import '../../ui.dart';
 
 class HomeViewModel extends BaseViewModel implements Initialisable {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
-  final _navigationService = locator<NavigationService>();
-  final _userEditService = locator<UserEditService>();
-
   bool _isLoading = false;
   bool get hasMoreUsers => _currentCount < _filteredUsers.length;
+  bool get isEmpty => _filteredUsers.isEmpty;
   bool get isLoading => _isLoading;
+  final _bottomSheetService = locator<BottomSheetService>();
+  final _dialogService = locator<DialogService>();
+  final _navigationService = locator<NavigationService>();
+  final _userEditService = locator<UserEditService>();
   final int _itemsPerPage = 5;
   final searchController = TextEditingController();
+  final ValueNotifier<User?> selectedUserNotifier = ValueNotifier<User?>(null);
   int _currentCount = 0;
   List<User> _displayedUsers = [];
   List<User> _filteredUsers = [];
   List<User> _users = [];
   List<User> get users => _displayedUsers;
   Timer? _debounce;
-  final ValueNotifier<User?> selectedUserNotifier = ValueNotifier<User?>(null);
 
   @override
   void initialise() {
-    /// Initializes the ViewModel by fetching users and listening to events.
     getUsers();
     listenToEvent();
   }
 
   @override
   void dispose() {
-    /// Disposes the ViewModel by cleaning up resources.
     searchController.dispose();
     _debounce?.cancel();
     super.dispose();
@@ -66,6 +64,7 @@ class HomeViewModel extends BaseViewModel implements Initialisable {
         .stream
         .where((event) => event is MyEvent && event.message == 'new_user')
         .listen((event) {
+      searchController.clear();
       getUsers();
     });
   }

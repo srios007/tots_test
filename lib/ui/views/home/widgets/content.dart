@@ -4,6 +4,7 @@ import 'package:tots_test/models/user.dart';
 import 'package:tots_test/ui/ui.dart';
 
 import '../../../../widgets/widgets.dart';
+import 'empty_state_widget.dart';
 
 class Content extends StatelessWidget {
   final HomeViewModel viewModel;
@@ -66,26 +67,28 @@ class Content extends StatelessWidget {
       child: Visibility(
         visible: !viewModel.isLoading,
         replacement: const LoadingWidget(),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ...List.generate(viewModel.users.length, (index) {
-                final item = viewModel.users[index];
-                return _userItem(item);
-              }),
-              Visibility(
-                visible: viewModel.hasMoreUsers,
-                child: CustomButton(
-                  width: Get.width - 94,
-                  buttonText: 'LOAD MORE',
-                  isLoading: false.obs,
-                  onPressed: viewModel.loadMoreUsers,
+        child: viewModel.isEmpty
+            ? const EmptyStateWidget(message: 'There are no users to display')
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ...List.generate(viewModel.users.length, (index) {
+                      final item = viewModel.users[index];
+                      return _userItem(item);
+                    }),
+                    Visibility(
+                      visible: viewModel.hasMoreUsers,
+                      child: CustomButton(
+                        width: Get.width - 94,
+                        buttonText: 'LOAD MORE',
+                        isLoading: false.obs,
+                        onPressed: viewModel.loadMoreUsers,
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                  ],
                 ),
               ),
-              const SizedBox(height: 15),
-            ],
-          ),
-        ),
       ),
     );
   }
