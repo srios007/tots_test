@@ -92,9 +92,9 @@ MockUserService getAndRegisterUserService() {
   return service;
 }
 
-MockUploadImageService getAndRegisterUploadImageService() {
+MockStorageService getAndRegisterUploadImageService() {
   _removeRegistrationIfExists<StorageService>();
-  final service = MockUploadImageService();
+  final service = MockStorageService();
   locator.registerSingleton<StorageService>(service);
   return service;
 }
